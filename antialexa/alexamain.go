@@ -3,6 +3,7 @@ package antialexa
 import (
 	"bytes"
 	"embed"
+	"fmt"
 	"time"
 
 	"github.com/getlantern/systray"
@@ -14,38 +15,50 @@ import (
 var assets embed.FS
 
 func RegisterComponent() {
-	mAntialexa := systray.AddMenuItemCheckbox("AntiAlexa", "Stop annoying alexa connection notifications", false)
+	mAntialexa := systray.AddMenuItemCheckbox("AntiAlexa", "Stop annoying alexa connection notifications", true)
+	var timer *time.Ticker
+
 	go func() {
-		var timer *time.Ticker
 		for {
 			<-mAntialexa.ClickedCh
 			if mAntialexa.Checked() {
 				mAntialexa.Uncheck()
-				if timer != nil {
-					timer.Stop()
-				}
+				handleMenuToggle(false, timer)
 			} else {
 				mAntialexa.Check()
-				timer = time.NewTicker(time.Minute * 5)
-				defer timer.Stop()
-				// Run once right away
-				execute()
-				go func() {
-					for range timer.C {
-						execute()
-					}
-				}()
+				handleMenuToggle(true, timer)
 			}
 		}
 	}()
+
+	// Handle for the state of the check when the program was launched
+	handleMenuToggle(mAntialexa.Checked(), timer)
 }
 
-func execute() {
-	//fmt.Println("Playing sound")
-	go play()
+func handleMenuToggle(newCheckedState bool, timer *time.Ticker) {
+	if newCheckedState {
+		timer = time.NewTicker(time.Minute * 5)
+		defer timer.Stop()
+		// Run once right away
+		executeTimerTick()
+		go func() {
+			for range timer.C {
+				executeTimerTick()
+			}
+		}()
+	} else {
+		if timer != nil {
+			timer.Stop()
+		}
+	}
 }
 
-func play() {
+func executeTimerTick() {
+	fmt.Println("Playing sound")
+	go playSilentSound()
+}
+
+func playSilentSound() {
 	// Read the mp3 file into memory
 	fileBytes, err := assets.ReadFile("Silent1s.mp3")
 	if err != nil {
