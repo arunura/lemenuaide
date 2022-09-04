@@ -8,7 +8,7 @@ LeMenuAide (pronounced _lemonade_) is a simple desktop assistant, which sits in 
 
 ## AntiAlexa
 
-This is the first feature (and main reason for this project) built in, to deal with annoying msgs from Amazon Echo, once it wakes up to connect to your PC. The name and soltuion (and the sound file) are adapted from LucaBarile's [AntiAlexa](https://github.com/LucaBarile/AntiAlexa) project in C# targetting windows along with the [blog post](https://lucabarile.github.io/Blog/antialexa/index.html) about it.
+This is the first feature (and main reason for this project) built in, to deal with annoying msgs from Amazon Echo, once it wakes up to connect to your PC. The name and solution (and the sound file) are adapted from LucaBarile's [AntiAlexa](https://github.com/LucaBarile/AntiAlexa) project in C# targetting windows. Also, do read his interesting [blog post](https://lucabarile.github.io/Blog/antialexa/index.html) about it.
 
 
 ## Building and running
