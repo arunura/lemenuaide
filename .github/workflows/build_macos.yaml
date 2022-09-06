@@ -18,7 +18,7 @@ jobs:
           go-version-file: 'go.mod'
 
       - name: Build
-        run: go build -o build/lemenuaide "github.com/arunura/lemenuaide"
+        run: go build -o build/lemenuaide 
       
       - name: Print environment info
         run: ls -la ; ls -la build
