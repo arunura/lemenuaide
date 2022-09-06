@@ -1,4 +1,4 @@
-name: Build
+name: Build MacOS Binary
 on:
   push:
     branches:
@@ -10,7 +10,7 @@ jobs:
     runs-on: macos-11.0
     steps:
       - name: Set up Go
-        uses: actions/setup-go@v1
+        uses: actions/setup-go@v3
         with:
           go-version-file: 'go.mod'
 
