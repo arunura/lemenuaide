@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: macos-11.0
+    runs-on: macos-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v1
@@ -17,11 +17,11 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
-      - name: Build MacOS ARM64 binary (Apple Silicon)
-        run: GOOS=darwin GOARCH=arm64 go build -o build/lemenuaide-macos-arm64
-
       - name: Build MacOS AMD64 binary (Intel CPUs)
         run: GOOS=darwin GOARCH=amd64 go build -o build/lemenuaide-macos-amd64
+        
+      - name: Build MacOS ARM64 binary (Apple Silicon)
+        run: GOOS=darwin GOARCH=arm64 CGO_ENABLED=1 CC=clang go build -o build/lemenuaide-macos-arm64
       
       - name: Print environment info
         run: ls -la ; ls -la build ; file build/lemenuaide-macos-arm64 ; file build/lemenuaide-macos-amd64
