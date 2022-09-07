@@ -26,7 +26,10 @@ jobs:
       - name: Create universal binary (fat binary for MacOS)
         run: lipo build/lemenuaide-macos-amd64 build/lemenuaide-macos-arm64 -create -output build/lemenuaide-macos-universal
       
+      - name: Assemble application bundle
+        run: cp -R -f bundle_macos/* build/LeMenuAide.app/ ; cp -f build/lemenuaide-macos-universal build/LeMenuAide.app/Contents/MacOS/
+
       - name: Print environment info
-        run: ls -la ; ls -la build ; file build/lemenuaide-macos-arm64 ; file build/lemenuaide-macos-amd64
+        run: ls -la ; ls -laR build 
         
         
