@@ -28,9 +28,9 @@ jobs:
       
       - name: Assemble application bundle
         run: |
-          cp -R -f bundle_macos/* build/LeMenuAide.app/  
-        #  mkdir build/LeMenuAide.app/Contents/MacOS
-        #  cp -f build/lemenuaide-macos-universal build/LeMenuAide.app/Contents/MacOS/
+          cp -R -f bundle_macos/ build/LeMenuAide.app/  
+          mkdir build/LeMenuAide.app/Contents/MacOS
+          cp -f build/lemenuaide-macos-universal build/LeMenuAide.app/Contents/MacOS/
 
       - name: Print environment info
         run: ls -la ; ls -laR build 
